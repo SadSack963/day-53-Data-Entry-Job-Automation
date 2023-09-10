@@ -1,5 +1,23 @@
+"""
+Author: SadSack963
+Version: 1.0
+Date: 10th September 2023
+
+Use the get_webpage() function to download the raw HTML of a webpage and save it to a local file.
+
+You can then do unlimited testing on that page by loading it from the local file,
+which will save your own bandwidth and prevent multiple downloads from the server during code testing.
+
+Hopefully this will prevent the website from blocking you or even introducing anti-robot measures in the future.
+Another advantage is that the page will never change while you are testing it,
+and it will always be there for comparison if the site changes and causes problems with your code later.
+"""
+
+# URL of the website we want to investigate
 URL = "https://www.apartments.com/san-francisco-ca/"
-FILE_RAW = 'data/raw_html.html'  # Create a "data" directory in the project tree
+
+# Create a "data" directory in the project tree
+FILE_RAW = 'data/raw_html.html'
 
 # http://myhttpheader.com/
 ACCEPT = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
