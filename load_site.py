@@ -11,6 +11,9 @@ which will save your own bandwidth and prevent multiple downloads from the serve
 Hopefully this will prevent the website from blocking you or even introducing anti-robot measures in the future.
 Another advantage is that the page will never change while you are testing it,
 and it will always be there for comparison if the site changes and causes problems with your code later.
+
+   Do not expect to be able to render this file properly.
+   Resources such as images and CSS are on the server, not your hard drive!
 """
 
 # URL of the website we want to investigate
