@@ -14,6 +14,7 @@ and it will always be there for comparison if the site changes and causes proble
 
    Do not expect to be able to render this file properly.
    Resources such as images and CSS are on the server, not your hard drive!
+   Just keep one copy of the page open in your browser so that you can use the development tools to search through it.
 """
 
 # URL of the website we want to investigate
