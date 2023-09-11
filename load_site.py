@@ -18,10 +18,10 @@ and it will always be there for comparison if the site changes and causes proble
 """
 
 # URL of the website we want to investigate
-URL = "https://www.apartments.com/san-francisco-ca/"
+URL = "https://www.apartments.com/new-york-ny/"
 
 # Create a "data" directory in the project tree
-FILE_RAW = 'data/raw_html.html'
+FILE_RAW = 'data/apartments.html'
 
 # http://myhttpheader.com/
 ACCEPT = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
@@ -46,8 +46,10 @@ USER_AGENT = [
 def get_webpage(url: str = URL, file: str = FILE_RAW, load_from_file: bool = True) -> str:
     """
     Function to get the HTML of a webpage.
-    If an HTML file exists and load_from_file is True then the HTML is loaded from file,
-    otherwise the HTML is downloaded from the URL.
+    The function will first check the given URL against the Most Recently Used URL.
+    If the URL is the same as previously used, and an HTML file exists and load_from_file is True,
+    then the HTML is loaded from file.
+    Otherwise, the HTML is downloaded from the given URL and saved to file.
 
     :param url: webpage URL - defaults to constant URL
     :type url: string
@@ -60,16 +62,28 @@ def get_webpage(url: str = URL, file: str = FILE_RAW, load_from_file: bool = Tru
     """
     import os
 
-    if os.path.exists(file) and load_from_file:
+    # Check the most recently used URL
+    same_address = False
+    if os.path.exists(path="data/mru.txt"):
+        with open(file="data/mru.txt", mode="r") as fp:
+            mru = fp.readline().strip()
+        if url == mru:
+            same_address = True
+
+    if same_address and os.path.exists(path=file) and load_from_file:
         print(
             f"Loading Webpage From File\n"
             f"{file}\n"
             f"===========================\n"
         )
-        with open(file, mode='r', encoding='utf-8') as fp:
+        with open(file=file, mode='r', encoding='utf-8') as fp:
             html = fp.read()
     else:
         html = download_webpage(url=url, file=file)
+        # Save the URL to the MRU file
+        with open("data/mru.txt", mode="w") as fp:
+            fp.write(url)
+
     return html
 
 
@@ -117,4 +131,5 @@ def download_webpage(url: str = URL, file: str = FILE_RAW) -> str:
 
 
 if __name__ == "__main__":
-    web_page = get_webpage(url="https://www.example.com", file="data/example.html")
+    web_page = get_webpage(url=URL, file=FILE_RAW)
+    print(web_page)
